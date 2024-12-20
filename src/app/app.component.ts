@@ -26,7 +26,6 @@ export class AppComponent {
   }
 
   onSelectUser(uid:string) {
-    this.userId = uid
-    const selectedUser = DUMMY_USERS.find((user) => user.id == uid);
+    this.userId = uid;
   }
 }
