@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 import { User } from '../user/user.model';
 import { Task } from './task/task.model';
@@ -7,12 +8,13 @@ import { Task } from './task/task.model';
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
   @Input() user?: User;
+  isStartAddNew = false;
   tasks: Task[] = [
     {
       id: 't1',
@@ -41,5 +43,13 @@ export class TasksComponent {
 
   get selectedUserTasks() {
     return this.tasks.filter((task) => task.userId == this.user?.id);
+  }
+
+  onCompleteTask(tid: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== tid);
+  }
+
+  onStartAddTask() {
+    this.isStartAddNew = true;
   }
 }
