@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 
-import { User } from '../user/user.model';
-import { Task } from './task/task.model';
+import { type User } from '../user/user.model';
+import { type Task } from './task/task.model';
+import { type NewTask } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -51,5 +52,20 @@ export class TasksComponent {
 
   onStartAddTask() {
     this.isStartAddNew = true;
+  }
+
+  onCancel() {
+    this.isStartAddNew = false;
+  }
+
+  onSubmit(newTask: NewTask) {
+    this.tasks.push({
+      id: new Date().getTime().toString(),
+      userId: this.user?.id,
+      title: newTask.title,
+      summary: newTask.summary,
+      dueDate: newTask.date
+    });
+    this.onCancel();
   }
 }
